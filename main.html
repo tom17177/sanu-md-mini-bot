@@ -1,270 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>𝐒𝐀𝐍𝐍𝐔 𝐌𝐃 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋</title>
-<link rel="icon" href="https://files.catbox.moe/vrahf4.jpg" type="image/jpg">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>SANNU MD MINI BOT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+    /* 🔴 RED CYBER SYSTEM STYLE 🔴 */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle at center, #0a0000 0%, #000 80%);
+  font-family: 'Orbitron', Arial, sans-serif;
+  overflow: hidden;
+  color: #ff1e56;
+}
 
-  body {
-    background: #000;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    color: #fff;
-  }
+/* floating neon effect background */
+body::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 0, 60, 0.15), transparent 70%);
+  top: 10%;
+  left: 20%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: pulse 6s infinite alternate;
+}
+body::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(255, 50, 0, 0.2), transparent 70%);
+  bottom: 10%;
+  right: 15%;
+  filter: blur(100px);
+  z-index: 0;
+  animation: pulse 8s infinite alternate-reverse;
+}
 
-  canvas#matrix {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: #000;
-  }
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.3); opacity: 0.4; }
+}
 
-  /* Centrage parfait de la boîte */
-  .container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
 
-  .box {
-    width: 380px;
-    padding: 40px;
-    background: rgba(20, 0, 0, 0.7);
-    border: 2px solid rgba(255, 0, 0, 0.4);
-    border-radius: 25px;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), inset 0 0 15px rgba(255, 0, 0, 0.2);
-    backdrop-filter: blur(12px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: float 6s ease-in-out infinite;
-    text-align: center;
-  }
+.box {
+  width: 340px;
+  padding: 25px;
+  background-color: rgba(10, 0, 0, 0.85);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow:
+    0 0 20px rgba(255, 0, 60, 0.6),
+    0 0 50px rgba(255, 0, 0, 0.25) inset;
+  border: 1px solid rgba(255, 0, 60, 0.4);
+  backdrop-filter: blur(6px);
+}
 
-  .box:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 0 45px rgba(255, 50, 50, 0.8);
-  }
+h3, h6 {
+  color: #ff003c;
+  margin: 10px 0;
+  text-shadow: 0 0 8px rgba(255, 0, 60, 0.8);
+  letter-spacing: 1px;
+}
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+h3 {
+  font-weight: 800;
+  font-size: 1.4rem;
+}
 
-  .box i {
-    font-size: 3.2rem;
-    color: #ff1f1f;
-    text-shadow: 0 0 20px #ff1f1f;
-  }
+h6 {
+  font-weight: 400;
+  color: #ff6a6a;
+  font-size: 0.9rem;
+}
 
-  h3 {
-    font-size: 1.8rem;
-    margin: 15px 0;
-    background: linear-gradient(45deg, #ff0000, #fff, #990000);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-top: 15px;
+}
 
-  h6 {
-    color: #aaa;
-    font-weight: 400;
-    margin-bottom: 10px;
-  }
+.input-container input,
+.input-container button {
+  height: 3rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
 
-  .input-container {
-    display: flex;
-    gap: 0.6rem;
-    background: rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 0.5rem;
-    margin-top: 20px;
-  }
+.input-container input {
+  width: 70%;
+  border-radius: 0.8rem 0 0 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding-left: 1rem;
+  border: 1px solid rgba(255, 0, 60, 0.3);
+  transition: all 0.3s ease;
+}
 
-  input {
-    flex: 1;
-    padding: 0.8rem;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255,255,255,0.95);
-    font-size: 1rem;
-    color: #000;
-    font-weight: bold;
-    outline: none;
-  }
+.input-container input:focus {
+  background: rgba(255, 0, 60, 0.15);
+  box-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+}
 
-  button {
-    background: linear-gradient(45deg, #ff1f1f, #880000);
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    padding: 0.8rem 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+.input-container button {
+  width: 30%;
+  border-radius: 0 0.8rem 0.8rem 0;
+  background: linear-gradient(90deg, #ff003c, #000000C4);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+  transition: all 0.3s ease;
+}
 
-  button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #880000, #ff1f1f);
-  }
+.input-container button:hover {
+  background: linear-gradient(90deg, #09FF00, #000000B8);
+  color: #fff;
+  box-shadow:
+    0 0 25px rgba(255, 0, 60, 0.8),
+    0 0 10px rgba(255, 70, 0, 0.4) inset;
+  transform: scale(1.05);
+}
 
-  #waiting-message {
-    margin-top: 20px;
-    color: #ff3d5a;
-    font-weight: 600;
-    display: none;
-  }
+a.centered-text {
+  color: #ff4d4d;
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
+  animation: flicker 1.8s infinite alternate;
+}
 
-  #pair {
-    margin-top: 20px;
-    font-size: 1.1rem;
-  }
+@keyframes flicker {
+  0% { opacity: 0.9; text-shadow: 0 0 8px rgba(255,0,0,0.9); }
+  100% { opacity: 0.6; text-shadow: 0 0 4px rgba(255,0,0,0.4); }
+}
 
-  #copy-btn {
-    display: none;
-    margin-top: 20px;
-    background: linear-gradient(45deg, #ff0000, #700000);
-    border: none;
-    padding: 12px 25px;
-    border-radius: 12px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
 
-  #copy-btn:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #700000, #ff0000);
-  }
 
-  .loader {
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top: 3px solid #ff1f1f;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-  }
+#profileIcon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #1a0000;
+  border: 2px solid #ff003c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff003c;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 25px #ff003c, 0 0 55px #ff0055;
+}
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+#profileIcon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 40px #ff003c, 0 0 80px #ff0055;
+}
 
-  @media (max-width: 480px) {
-    .box { width: 90%; padding: 30px; }
-    .input-container { flex-direction: column; }
-    button { width: 100%; }
-  }
-</style>
+/* ---------------- PROFILE PANEL ---------------- */
+#profileInfoPanel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(145deg, #200000 0%, #3a0000 100%);
+  border: 2px solid #ff003c;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 50px #ff003c;
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInScale 0.4s ease forwards;
+}
+
+#profileInfoPanel.active {
+  display: flex;
+}
+
+/* Animation */
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ---------------- HEADER ---------------- */
+.profile-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.profile-info-title {
+  font-size: 22px;
+  color: #ff003c;
+  text-shadow: 0 0 25px #ff003c;
+  letter-spacing: 2px;
+}
+
+#closeProfileInfoBtn {
+  background: none;
+  border: none;
+  color: #ff0055;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#closeProfileInfoBtn:hover {
+  color: #ffffff;
+  text-shadow: 0 0 15px #ff003c;
+}
+
+/* ---------------- CONTENT ---------------- */
+.profile-info-content {
+  width: 100%;
+  text-align: center;
+}
+
+.profile-info-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid #ff003c;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 40px #ff003c, 0 0 80px #ff0022;
+}
+
+.profile-info-username {
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 0 20px #ff003c;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* ---------------- INFO BOX ---------------- */
+.profile-info-details {
+  background: rgba(25, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #ff003c;
+  box-shadow: inset 0 0 25px #ff0011;
+}
+
+.profile-info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ff0022;
+}
+
+.profile-info-item:last-child {
+  border-bottom: none;
+}
+
+.profile-info-label {
+  color: #ff8888;
+  font-size: 14px;
+}
+
+.profile-info-value {
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-shadow: 0 0 10px #ff003c;
+}
+
+/* ---------------- OVERLAY ---------------- */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 0, 0, 0.8);
+  z-index: 1500;
+  display: none;
+  backdrop-filter: blur(3px);
+}
+
+#overlay.active {
+  display: block;
+}
+
+/* ---------------- NEON BORDER ANIMATION ---------------- */
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 15px #ff003c; }
+  50% { box-shadow: 0 0 45px #ff003c; }
+  100% { box-shadow: 0 0 15px #ff003c; }
+}
+
+#profileInfoPanel {
+  animation: borderGlow 2s infinite ease-in-out;
+}
+
+
+
+
+
+  </style>
 </head>
 <body>
+  
+  
+  <!-- 🔴 Profile Icon -->
+<div id="profileIcon">
+  <i class="fas fa-user"></i>
+</div>
 
-<!-- Fond animé Matrix -->
-<canvas id="matrix"></canvas>
+<!-- Overlay -->
+<div id="overlay"></div>
 
-<div class="container">
-  <div class="box">
-    <i class="fa fa-whatsapp"></i>
-    <h3>𝐒𝐀𝐍𝐍𝐔 𝐌𝐃 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋</h3>
-    <h6>🍂𝙼𝙰𝙳𝙴 𝙱𝚈 𝚂𝙰𝙽𝙽𝚄 𝙼𝙳🍂</h6>
-    <h6>❖𝙴𝙽𝚃𝙴𝚁 𝚈𝙾𝚄𝚁 𝙽𝚄𝙼𝙱𝙴𝚁 𝚆𝙸𝚃𝙷 𝙲𝚄𝙽𝚃𝚁𝚈 𝙲𝙾𝙳𝙴❖</h6>
+<!-- 🔴 Profile Panel -->
+<div id="profileInfoPanel">
+  <div class="profile-info-header">
+    <div class="profile-info-title">BOT INFORMATION</div>
+    <button id="closeProfileInfoBtn"><i class="fas fa-times"></i></button>
+  </div>
 
-    <div class="input-container">
-      <input placeholder="947858XXXX" type="number" id="number">
-      <button id="submit">sᴜʙᴍɪᴛ</button>
+  <div class="profile-info-content">
+    <img src="https://files.catbox.moe/vrahf4.jpg" alt="Profile Avatar" class="profile-info-avatar">
+    <div class="profile-info-username">𝐒𝐀𝐍𝐍𝐔 𝐌𝐃 𝐌𝐈𝐍𝐈</div>
+
+    <div class="profile-info-details">
+      <div class="profile-info-item">
+        <span class="profile-info-label">BOT USERNAME:</span>
+        <span class="profile-info-value">𝚂𝙰𝙽𝙽𝚄 𝚇 𝚈𝙰𝙺𝚄𝚉𝙰</span>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="profile-info-label">GITHUB PASSEWORD:</span>
+        <span class="profile-info-value">www.github/ubesiyagen/illaganim.com</span>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="profile-info-label">ROLE:</span>
+        <span class="profile-info-value">𝙾𝚆𝙽𝙴𝚁</span>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="profile-info-label">EXPIREDE:</span>
+        <span class="profile-info-value">◉◉◉◉</span>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="profile-info-label">STATUS:</span>
+        <span class="profile-info-value">𝙰𝙲𝚃𝙸𝚅𝙴</span>
+      </div>
     </div>
-
-    <div id="waiting-message"><span class="loader"></span> ɢᴇɴᴇʀᴀᴛɪɴɢ ᴄᴏᴅᴇ...</div>
-    <div id="pair"></div>
-    <button id="copy-btn">ᴄᴏᴘʏ ᴄᴏᴅᴇ</button>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+  
+  
+  
+  <div class="container">
+    <div class="box" id="box">
+      <div id="text">
+        <i class="fa fa-user" style="color:#C50707;"></i>
+        <h3>SANNU MD MINI BOT</h3>
+        <h6>ᴄʀᴇᴀᴛᴇᴅ ʙʏ ꜱᴀɴɴᴜ ᴍᴅ👻</h6>
+        <h6>🔢 Enter your number with country code</h6>
 
-<script>
-  // --- MATRIX BACKGROUND ---
-  const canvas = document.getElementById("matrix");
-  const ctx = canvas.getContext("2d");
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
+        <div class="input-container">
+          <input placeholder="9476xxxxxxx" type="number" id="number">
+          <button id="submit">Submit</button>
+        </div>
 
-  const letters = "01XɅƬⲘⲊⲒⲚⲀⲔⲞⲦⲈⲀⲊⲞⲀⲦ";
-  const fontSize = 18;
-  const columns = canvas.width / fontSize;
-  const drops = Array(Math.floor(columns)).fill(1);
+        <a id="waiting-message" class="centered-text" style="display: none;">Please wait a while...</a>
+        <main id="pair"></main>
+      </div>
+    </div>
+  </div>
 
-  function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#ff1f1f";
-    ctx.font = fontSize + "px monospace";
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
 
-    for (let i = 0; i < drops.length; i++) {
-      const text = letters.charAt(Math.floor(Math.random() * letters.length));
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-        drops[i] = 0;
-      drops[i]++;
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "COPIED";
+      obj.style = "color:blue;font-weight:bold";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:white;font-weight-bold";
+      }, 500);
     }
-  }
 
-  setInterval(draw, 33);
-  window.addEventListener('resize', () => {
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-  });
-
-  // --- PAIRING SCRIPT ---
-  const submitBtn = document.getElementById("submit");
-  const numberInput = document.getElementById("number");
-  const pairOutput = document.getElementById("pair");
-  const waitingMsg = document.getElementById("waiting-message");
-  const copyBtn = document.getElementById("copy-btn");
-
-  submitBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const number = numberInput.value.replace(/[^0-9]/g, "");
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<a style="color:white;font-weight:bold">Enter your WhatsApp number with Country Code</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:red;font-weight:bold">Invalid Number</a><br><br>';
+      } else {
+        const number = c.value.replace(/[^0-9]/g, "");
+        c.type = "text";
+        c.value = "+" + number;
+        c.style = "color:black;font-size:20px";
+        a.innerHTML = '<a style="color:white;font-weight:bold">Please Wait...</a><br><br>';
+        let { data } = await axios(`/code?number=${number}`);
+        let code = data.code || "Service Unavailable";
+        a.innerHTML = `<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;">${code}</span></font><br><br><br>`;
+      }
+    });
     
-    if (!number || number.length < 11) {
-      pairOutput.innerHTML = '<span style="color:#ff3d3d;">❌ Invalid or empty number ❌</span>';
-      return;
-    }
+    // =======================================
+// 🔴 Profile Panel Interactions
+// =======================================
+const profileIcon = document.getElementById('profileIcon');
+const profileInfoPanel = document.getElementById('profileInfoPanel');
+const closeProfileInfoBtn = document.getElementById('closeProfileInfoBtn');
+const overlay = document.getElementById('overlay');
 
-    waitingMsg.style.display = "block";
-    pairOutput.innerHTML = "";
-    copyBtn.style.display = "none";
+profileIcon.addEventListener('click', () => {
+  profileInfoPanel.classList.add('active');
+  overlay.classList.add('active');
+});
 
-    try {
-      const { data } = await axios.get(`/code?number=${number}`);
-      const code = data.code || "Unavailable";
+closeProfileInfoBtn.addEventListener('click', () => {
+  profileInfoPanel.classList.remove('active');
+  overlay.classList.remove('active');
+});
 
-      waitingMsg.style.display = "none";
-      pairOutput.innerHTML = `<span style="font-weight:bold;color:#ff1f1f;">CODE:</span> <span id="copy-text" style="color:#fff;">${code}</span>`;
-      copyBtn.style.display = "inline-block";
-
-      copyBtn.onclick = async () => {
-        await navigator.clipboard.writeText(code);
-        copyBtn.innerText = "Copied ✅";
-        setTimeout(() => copyBtn.innerText = "Copy Code", 1500);
-      };
-    } catch (err) {
-      waitingMsg.style.display = "none";
-      pairOutput.innerHTML = `<span style="color:#ff3d3d;">⚠️ Failed to fetch code. Try again later.</span>`;
-    }
-  });
-
+overlay.addEventListener('click', () => {
+  profileInfoPanel.classList.remove('active');
+  overlay.classList.remove('active');
+});
+    
+    
+    
+    
+  </script>
+</body>
+</html>
