@@ -694,7 +694,47 @@ case 'bot_info': {
     }
     break;
 }
-                // Case: menu
+                    //OWNER 
+     case 'owner': {
+    const ownerNumber = '+94772563976';
+    const ownerName = '𝚂𝙰𝙽𝙽𝚄 𝙼𝙳 𝙾𝚆𝙽𝙴𝚁🥷';
+    const organization = '*𝚂𝙰𝙽𝙽𝚄-𝙼𝙳* WHATSAPP BOT DEVALOPER 🍬';
+
+    const vcard = 'BEGIN:VCARD\n' +
+                  'VERSION:3.0\n' +
+                  `FN:${ownerName}\n` +
+                  `ORG:${organization};\n` +
+                  `TEL;type=CELL;type=VOICE;waid=${ownerNumber.replace('+', '')}:${ownerNumber}\n` +
+                  'END:VCARD';
+
+    try {
+        // Send vCard contact
+        const sent = await socket.sendMessage(from, {
+            contacts: {
+                displayName: ownerName,
+                contacts: [{ vcard }]
+            }
+        });
+
+        // Then send message with reference
+        await socket.sendMessage(from, {
+            text: `*𝚂𝙰𝙽𝙽𝚄 𝙼𝙳 𝙾𝚆𝙽𝙴𝚁🥷*\n\n👤 Name: ${ownerName}\n📞 Number: ${ownerNumber}\n\n> © 𝙿𝙾𝚆𝙴𝚁𝙳 𝙱𝚈🥷𝚂𝙰𝙽𝙽𝚄 𝙼𝙳 𝙼𝙸𝙽𝙸 𝙱𝙾𝚃`,
+            contextInfo: {
+                mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`],
+                quotedMessageId: sent.key.id
+            }
+        }, { quoted: msg });
+
+    } catch (err) {
+        console.error('❌ Owner command error:', err.message);
+        await socket.sendMessage(from, {
+            text: '❌ Error sending owner contact.'
+        }, { quoted: msg });
+    }
+
+    break;
+     }                    
+                    // Case: menu
           // Case: menu
 case 'menu': {
   try {
@@ -3807,7 +3847,7 @@ case 'script': {
         const repoData = await response.json();
 
         const formattedInfo = `
-    SANNU-𝙼𝙳 
+   𝚂𝙰𝙽𝙽𝚄-𝙼𝙳 
 ┏☐━❲🔸𝚂𝙰𝙽𝙽𝚄 𝙼𝙳 𝙼𝙸𝙽𝙸 𝙱𝙾𝚃🔸❳━☐
 │🍂│ɴᴀᴍᴇ: ${repoData.name}
 │🍂│sᴛᴀʀs: ${repoData.stargazers_count}
